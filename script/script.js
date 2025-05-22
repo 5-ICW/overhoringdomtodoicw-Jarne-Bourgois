@@ -7,19 +7,19 @@ const todoList = [
   {
     id: 1,
     todo: "Wakker blijven",
-    winkel: "school",
+    winkel: "",
     status: true,
   },
   {
     id: 2,
     todo: "Roikel soepje drinken",
-    winkel: "De kesel zijn stash",
+    winkel: "",
     status: true,
   },
   {
     id: 3,
     todo: "Speech maken pyhton is beter dan JS",
-    winkel: "Aldi",
+    winkel: "",
     status: true,
   },
 ];
@@ -28,21 +28,11 @@ function addtolist(List) {
   list.innerHTML = "";
   List.forEach((element) => {
     const li = document.createElement("li");
-    li.innerText = `${element.todo}`;
+    li.innerText = `${element.todo} :     ${element.winkel}`;
     li.addEventListener("click", function () {
       li.classList.toggle("completed");
     });
     list.appendChild(li);
-  });
-}
-
-function fillSelect(element, listen, valueOption) {
-  element.innerHTML = "";
-  listen.forEach((item) => {
-    const newOption = document.createElement("option");
-    newOption.value = item[valueOption];
-    newOption.innerHTML = item.winkel;
-    element.appendChild(newOption);
   });
 }
 
@@ -54,7 +44,7 @@ form.addEventListener("submit", function (e) {
     todoList.push({
       id: maxID(todoList, "id") + 1,
       todo: `${text}`,
-      winkel: "azerty",
+      winkel: dropdown.value,
       status: true,
     });
     input.value = "";
@@ -74,4 +64,25 @@ const maxID = (lijst, veldNaamID) => {
 };
 
 addtolist(todoList);
-fillSelect(dropdown, list, "id");
+
+const winkels = [
+  {
+    id: 1,
+    winkel: "Aldi",
+  },
+  {
+    id: 2,
+    winkel: "Lidl",
+  },
+  {
+    id: 3,
+    winkel: "Temu",
+  },
+];
+
+winkels.forEach((item) => {
+  const newOption = document.createElement("option");
+  newOption.value = item.id;
+  newOption.innerHTML = item.winkel;
+  dropdown.appendChild(newOption);
+});
