@@ -20,7 +20,7 @@ const todoList = [
     id: 3,
     todo: "Speech maken pyhton is beter dan JS",
     winkel: "",
-    status: true,
+    status: false,
   },
 ];
 
@@ -29,9 +29,13 @@ function addtolist(List) {
   List.forEach((element) => {
     const li = document.createElement("li");
     li.innerText = `${element.todo} :     ${element.winkel}`;
+    li.attributes = element.status;
     li.addEventListener("click", function () {
       li.classList.toggle("completed");
     });
+    if (li.attributes == false) {
+      li.classList.toggle("completed");
+    }
     list.appendChild(li);
   });
 }
@@ -44,7 +48,7 @@ form.addEventListener("submit", function (e) {
     todoList.push({
       id: maxID(todoList, "id") + 1,
       todo: `${text}`,
-      winkel: dropdown.value,
+      winkel: dropdown.value.winkel,
       status: true,
     });
     input.value = "";
